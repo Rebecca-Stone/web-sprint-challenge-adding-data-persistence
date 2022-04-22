@@ -3,6 +3,8 @@
   "version": "0.0.1",
   "main": "index.js",
   "scripts": {
+    "start": "node index.js",
+    "server": "nodemon index.js",
     "test": "cross-env NODE_ENV=testing jest --verbose --runInBand --silent"
   },
   "repository": {
@@ -14,6 +16,16 @@
     "cross-env": "7.0.3",
     "eslint": "8.10.0",
     "jest": "27.5.1",
+    "nodemon": "^2.0.15",
     "supertest": "6.2.2"
+  },
+  "dependencies": {
+    "@vscode/sqlite3": "^5.0.8",
+    "cors": "^2.8.5",
+    "express": "^4.17.3",
+    "helmet": "^5.0.2",
+    "knex": "^2.0.0",
+    "morgan": "^1.10.0",
+    "sqlite3": "^5.0.4"
   }
 }

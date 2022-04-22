@@ -11,7 +11,7 @@ You are not allowed to collaborate during the sprint challenge.
 ## Project Set Up
 
 - [X] Run `npm install` to install your dependencies.
-- [ ] Run tests locally executing `npm test`.
+- [X] Run tests locally executing `npm test`.
 
 ## Project Instructions
 
@@ -21,8 +21,8 @@ In this project you will be given a set of requirements and must design a databa
 
 ### Files to Complete
 
-1. `package.json`
-2. `index.js`
+<!-- 1. `package.json` -->
+<!-- 2. `index.js` -->
 3. `api/server.js`
 4. `model.js` inside `api/project`, `api/resource` and `api/task`
 5. `router.js` inside `api/project`, `api/resource` and `api/task`
