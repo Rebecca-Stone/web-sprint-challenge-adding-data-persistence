@@ -1,19 +1,23 @@
 // build your `/api/projects` router here
 const express = require("express");
 const Projects = require("./model");
-const { validateProject } = require('./middleware');
+// const { validateProject } = require('./middleware');
 
 const router = express.Router();
 
-router.post("/", validateProject, (req, res, next) => {
-  const project = req.body;
+router.post(
+  "/",
+  // validateProject,
+  (req, res, next) => {
+    const project = req.body;
 
-  Projects.add(project)
-    .then((project) => {
-      res.status(201).json(project);
-    })
-    .catch(next);
-});
+    Projects.add(project)
+      .then((project) => {
+        res.status(201).json(project);
+      })
+      .catch(next);
+  }
+);
 // - [ ] `[POST] /api/projects`
 //   - Even though `project_completed` is stored as an integer, the API uses booleans when interacting with the client
 //   - Example of response body: `{"project_id":1,"project_name":"bar","project_description":null,"project_completed":false}`
@@ -21,7 +25,12 @@ router.post("/", validateProject, (req, res, next) => {
 router.get("/", (req, res, next) => {
   Projects.getProjects()
     .then((projects) => {
-      res.status(200).json(projects);
+      // if (projects.project_completed == 0) {
+        // projects.project_completed = false;
+      // } else {
+        // projects.project_completed = true;
+      // }
+      res.status(201).json(projects);
     })
     .catch(next);
 });
