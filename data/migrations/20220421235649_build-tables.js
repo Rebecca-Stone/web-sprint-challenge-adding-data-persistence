@@ -29,7 +29,6 @@ exports.up = async function (knex) {
         .onDelete("RESTRICT");
     })
 
-    // - [ ] A **resource assignment** connects a resource and a project, and is stored in a `` table. You decide what columns to use.
     .createTable("project_resources", (tbl) => {
       tbl.increments("project_resources_id");
       tbl
