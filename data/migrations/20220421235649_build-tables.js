@@ -48,7 +48,6 @@ exports.up = async function (knex) {
         .inTable("resources")
         .onUpdate("CASCADE")
         .onDelete("RESTRICT");
-        
     });
 };
 
