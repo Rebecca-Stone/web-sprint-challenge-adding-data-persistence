@@ -7,9 +7,10 @@ const router = express.Router();
 router.post("/", (req, res, next) => {
   const resource = req.body;
 
-  Resources.add(resource)
+  Resources.addResource(resource)
     .then((resource) => {
-      res.status(201).json(resource);
+      let { resource_name } = resource;
+      res.status(201).json(resource_name);
     })
     .catch(next);
 });

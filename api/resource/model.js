@@ -4,9 +4,7 @@ const db = require("../../data/dbConfig");
 function find() {
   return db("resources").select(
     "resource_name",
-
     "resource_id",
-    //   "resource_name",
     "resource_description"
   );
   // `[{
@@ -16,31 +14,33 @@ function find() {
   // }]
 }
 
-async function findById(resource_id) {
-  let results = await db("resources").where("resource_id", resource_id).select(
-    "resource_name",
-    "resource_id",
-    //   "resource_name",
-    "resource_description"
-  );
+// function findResources(project_id) {
+//   return db("project_resources").where("project_id", project_id).select(
+//     "resource_name",
+//     "resource_id",
+//     "resource_description"
+//   );
   // {
   // "resource_id": 1,
   // "resource_name": "foo",
   // "resource_description": null
   // }
-  return results;
-}
+// }
 
-function add(resource) {
+function addResource(resource) {
   return db("resources")
-    .insert(resource)
-    .then(([resource_id]) => {
-      return findById(resource_id);
+    .insert({...resource})
+    .then(() => {
+      return db("resources").select(
+        "resource_name",
+        "resource_id",
+        "resource_description"
+      );
     });
 }
 
 module.exports = {
   find,
-  findById,
-  add,
+  // findResources,
+  addResource,
 };
