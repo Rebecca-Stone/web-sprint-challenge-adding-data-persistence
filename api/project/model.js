@@ -1,6 +1,6 @@
 const db = require("../../data/dbConfig");
 
-async function getProjects() {
+async function getAllProjects() {
   let results = await db("projects").select(
     "project_id",
     "project_name",
@@ -11,29 +11,15 @@ async function getProjects() {
 }
 
 async function findById(project_id) {
-  let results = await db("projects")
+  let project = await db("projects")
     .where("project_id", project_id)
     .select(
       "project_id",
       "project_name",
       "project_description",
       "project_completed"
-    );
-  if (results.length == 0) {
-    return null;
-  }
-  let completed = false;
-  if (results[0].project_completed == 1) {
-    completed = true;
-  } else if (results[0].project_completed == 0) {
-    completed = false;
-  }
-  const project = {
-    project_id: results[0].project_id,
-    project_name: results[0].project_name,
-    project_description: results[0].project_description,
-    project_completed: completed,
-  };
+    )
+    .first();
   return project;
 }
 
@@ -46,6 +32,6 @@ function addProjects(project) {
 }
 
 module.exports = {
-  getProjects,
+  getAllProjects,
   addProjects,
 };

@@ -1,38 +1,28 @@
 const db = require("../../data/dbConfig");
 
-function find() {
-  // `[{
-  // "resource_id": 1,
-  // "resource_name": "foo",
-  // "resource_description": null
-  // }]
-  return db("resources").select(
-    "resource_name",
-    "resource_id",
-    "resource_description"
-  );
+async function findAllResources() {
+  let resource = await db("resources");
+  return resource;
 }
 
-// function findResources(project_id) {
-//   return db("project_resources")
-//      .where("project_id", project_id)
-//      .select("resource_name", "resource_id", "resource_description");
-// }
+async function findResource(resource_id) {
+  let newResource = await db("resources")
+    .where("resource_id", resource_id)
+    .first();
+  return newResource;
+}
 
-function addResource(resource) {
-  return db("resources")
-    .insert({ ...resource })
-    .then(() => {
-      return db("resources").select(
-        "resource_name",
-        "resource_id",
-        "resource_description"
-      );
-    });
+async function addResource(resource) {
+  if (resource.resource_name) {
+    return await db("resources")
+      .insert(resource)
+      .then(([resource_id]) => {
+        return findResource(resource_id);
+      });
+  }
 }
 
 module.exports = {
-  find,
-  // findResources,
+  findAllResources,
   addResource,
 };

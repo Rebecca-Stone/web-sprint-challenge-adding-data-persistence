@@ -3,36 +3,23 @@ const Tasks = require("./model");
 
 const router = express.Router();
 
-// - [ ] `[POST] /api/tasks`
-//   - Even though `task_completed` is stored as an integer, the API uses booleans when interacting with the client
-router.post("/", (req, res, next) => {
-  const task = req.body;
-  //   - Example of response body: `{"task_id":1,"task_description":"baz","task_notes":null,"task_completed":false,"project_id:1}`
-  Tasks.addTask(task)
-    .then((allSteps) => {
-      res.status(201).json(allSteps);
+router.get("/", (req, res, next) => {
+  Tasks.findTasks()
+    .then((tasks) => {
+      res.json(
+        tasks.map((task) => {
+          return { ...task, task_completed: !!task.task_completed };
+        })
+      );
     })
     .catch(next);
 });
 
-// - [ ] `[GET] /api/tasks`
-//   - Even though `task_completed` is stored as an integer, the API uses booleans when interacting with the client
-router.get("/", (req, res, next) => {
-  //   - Each task must include `project_name` and `project_description`
-
-  //   - Example of response body:
-  // [{
-  // "task_id": 1,
-  // "task_description": "baz",
-  // "task_notes": null,
-  // "task_completed": false,
-  // "project_name:"bar",
-  // "project_description": null
-  // }]
-
-  Tasks.findTasks()
-    .then((tasks) => {
-      res.json(tasks);
+router.post("/", (req, res, next) => {
+  const task = req.body;
+  Tasks.addTask(task)
+    .then((task) => {
+      res.status(201).json({ ...task, task_completed: !!task.task_completed });
     })
     .catch(next);
 });

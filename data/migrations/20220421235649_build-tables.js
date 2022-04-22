@@ -7,7 +7,6 @@ exports.up = async function (knex) {
       tbl.string("project_description");
       tbl.boolean("project_completed").notNullable().defaultTo(0);
     })
-
     .createTable("resources", (tbl) => {
       tbl.increments("resource_id");
       tbl.string("resource_name").notNullable().unique();
@@ -36,24 +35,19 @@ exports.up = async function (knex) {
         .unsigned()
         .notNullable()
         .references("project_id")
-        .inTable("projects")
-        .onUpdate("CASCADE")
-        .onDelete("RESTRICT");
+        .inTable("projects");
       tbl
         .integer("resource_id")
         .unsigned()
         .notNullable()
         .references("resource_id")
-        .inTable("resources")
-        .onUpdate("CASCADE")
-        .onDelete("RESTRICT");
+        .inTable("resources");
     });
 };
 
 exports.down = function (knex) {
   return knex.schema
     .dropTableIfExists("project_resources")
-    .dropTableIfExists("projects")
     .dropTableIfExists("tasks")
     .dropTableIfExists("resources")
     .dropTableIfExists("projects");
